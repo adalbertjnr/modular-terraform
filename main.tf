@@ -32,4 +32,12 @@ module "loadbalancing" {
   source = "./loadbalancing"
   security_groups = module.networking.security_group_out
   pub_subnetcidr = module.networking.pub_subnets_out
+  tg_port = 80
+  tg_protocol = "HTTP"
+  vpc_id = module.networking.vpc_id
+  lb_healthy_threshold = 2
+  lb_unhealthy_threshold = 2
+  lb_timeout = 3
+  lb_interval = 20
+  
 }
