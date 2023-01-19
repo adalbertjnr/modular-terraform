@@ -27,3 +27,9 @@ vpc_security_group_ids = module.networking.db_security_group
 db_identifier = "rds-database"
 
 }
+
+module "loadbalancing" {
+  source = "./loadbalancing"
+  security_groups = module.networking.security_group_out
+  pub_subnetcidr = module.networking.pub_subnets_out
+}
