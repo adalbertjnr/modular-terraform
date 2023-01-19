@@ -17,3 +17,7 @@ variable "lb_timeout" {}
 variable "lb_interval" {}
 
 variable "vpc_id" {}
+
+variable "listener_port" {}
+
+variable "listener_protocol" {}
