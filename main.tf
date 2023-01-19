@@ -13,20 +13,20 @@ module "networking" {
   db_subnet_group = true
 }
 
-module "database" {
-source = "./database"
-db_storage = 10
-db_name = var.db_name
-db_engine_version = "5.7.22"
-db_instance_class = "db.t2.micro"
-db_username = var.db_username
-db_password = var.db_password
-skip_db_snapshot = true
-db_subnet_group_name = module.networking.db_subnet_group[0]
-vpc_security_group_ids = module.networking.db_security_group
-db_identifier = "rds-database"
+# module "database" {
+# source = "./database"
+# db_storage = 10
+# db_name = var.db_name
+# db_engine_version = "5.7.22"
+# db_instance_class = "db.t2.micro"
+# db_username = var.db_username
+# db_password = var.db_password
+# skip_db_snapshot = true
+# db_subnet_group_name = module.networking.db_subnet_group[0]
+# vpc_security_group_ids = module.networking.db_security_group
+# db_identifier = "rds-database"
 
-}
+# }
 
 module "loadbalancing" {
   source = "./loadbalancing"
