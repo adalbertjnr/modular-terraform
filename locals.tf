@@ -25,6 +25,12 @@ locals {
           protocol = "tcp"
           cidr_blocks = local.sg_access_from          
         }
+        nginx = {
+          from_port = 8000
+          to_port = 8000
+          protocol = "tcp"
+          cidr_blocks = local.sg_access_from
+        }
         https = {
           from_port = 443
           to_port = 443
