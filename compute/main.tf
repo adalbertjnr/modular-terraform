@@ -51,5 +51,5 @@ resource "aws_lb_target_group_attachment" "ec2_att" {
     count = var.instance_count
     target_group_arn = var.lb_target_group_arn
     target_id = aws_instance.ec2[count.index].id
-    port = 8000
+    port = var.port_tg
 }
