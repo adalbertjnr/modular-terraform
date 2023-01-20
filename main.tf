@@ -17,8 +17,8 @@ module "database" {
 source = "./database"
 db_storage = 10
 db_name = var.db_name
-db_engine_version = "5.7.22"
-db_instance_class = "db.t2.micro"
+db_engine_version = "5.7.33"
+db_instance_class = "db.t3.micro"
 db_username = var.db_username
 db_password = var.db_password
 skip_db_snapshot = true
@@ -32,7 +32,7 @@ module "loadbalancing" {
   source = "./loadbalancing"
   security_groups = module.networking.security_group_out
   pub_subnetcidr = module.networking.pub_subnets_out
-  tg_port = 80
+  tg_port = 8000
   tg_protocol = "HTTP"
   vpc_id = module.networking.vpc_id
   lb_healthy_threshold = 2
@@ -46,9 +46,18 @@ module "loadbalancing" {
 
 module "compute" {
   source = "./compute"
-  instance_count = 1
+  instance_count = 2
   instance_type = "t3.micro"
   volume_size = 10
   public_subnet = module.networking.pub_subnets_out
   public_security = module.networking.security_group_out
+  key_name = "key_pair_ec2"
+  public_key_path = "~/.ssh/id_rsa.pub"
+  user_data_path = "userdata.tpl"
+  db_name = var.db_name
+  db_username = var.db_username
+  db_password = var.db_password
+  db_endpoint = module.database.db_endpoint_out
+  lb_target_group_arn = module.loadbalancing.lb_target_group_arn_out
+  
 }
